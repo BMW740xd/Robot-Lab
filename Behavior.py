@@ -65,7 +65,7 @@ class Behavior:
 
         elif self.behavior == 3: #IR, sjekker linje
             utenfor = False
-            for n in self.values[1]:
+            for n in self.values[1]: #funker dette egt??
                 if n < 0.2: #mindre så er den svart og er da på vei vekk fra linjen, må snu
 
                     self.active_flag = True
@@ -95,6 +95,18 @@ class Behavior:
             #den er kun aktiv hvis man er så og så nærme, høyere match_degree jo nærmere objektet
 
             self.match_degree = 5 - self.values[0]/5 #jo høyere value jo mindre match_degree, mindre "urgent"
+            self.motor_recommendations = 'B' #kjøre bakover, dette kodes i motob
+
+        elif self.behavior == 2: #kamera, hva gjøres her
+            return
+
+        elif self.behavior == 3: # holde seg på linjen, må svinge, avhenger av side den er på avveie
+            minst = 99
+            # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre 
+            for n in self.values[2]:
+                if n <= minst:
+                    minst = n
+
 
 
 
