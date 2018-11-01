@@ -39,8 +39,7 @@ class Controller:
         pass
 
     def add_behavior(self):
-        behavior(type, )
-        behav
+        Behavior.Behavior.hey
 
     def add_sensob(self):
         pass
