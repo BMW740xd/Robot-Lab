@@ -94,7 +94,7 @@ class Behavior:
             #må sjekke hva value er og regne ut en match_degree
             #den er kun aktiv hvis man er så og så nærme, høyere match_degree jo nærmere objektet
 
-            self.match_degree = 5 -
+            self.match_degree = 5 - self.values[0]/5 #jo høyere value jo mindre match_degree, mindre "urgent"
 
 
 
