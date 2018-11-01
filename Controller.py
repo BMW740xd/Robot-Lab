@@ -2,8 +2,8 @@ import Arbitrator
 import Sensob
 import Motob
 import Behavior
+import time
 
-#sjekker at git funker
 
 class Controller:
     # behaviors - a list of all the behavior objects used by the bbcon
@@ -29,22 +29,31 @@ class Controller:
     # of time, e.g., one half second, thus producing activity in the robot, such as moving forward or turning.
     # 6. Reset the sensobs - Each sensob may need to reset itself, or its associated sensor(s), in some way.
 
-    behaviors = []
-    active_behaviors = []
-    sensobs = []
-    motobs = []
+    behavior_list = []
+    active_behavior_list = []
+    sensob_list = []
+    motob_list = []
     arbitrator = Arbitrator.Arbitrator()
+    priority_list = [0.7, 0.3, 0.2, 0.1]
+    antall_sensorer = 6
+    antall_behaviors = 4
 
-    def __init__(self):
-        pass
+    def __init__(self):  # Starter roboten ved å legge til oppforsel og sensorobjektene
+        self.add_behavior(self.antall_behaviors)
+        self.add_sensob(self.antall_sensorer)
+        self.run_one_timestep()
+        self.test_list = []
+        Behavior.Behavior(self, 2, 3)
 
-    def add_behavior(self):
-        Behavior.Behavior.hey
+    def add_behavior(self, antall):  # Oppretter og legger til oppforselsobjektene i en liste "behavior_list"
+        for i in range(antall):
+            self.behavior_list.append(Behavior.Behavior(self, self.priority_list[i], antall + 1))
 
-    def add_sensob(self):
-        pass
+    def add_sensob(self, antall):  # Oppretter og legger til sensorobjektene i en liste "sensob_list"
+        for i in range(antall):
+            self.sensob_list.append(Sensob.Sensob(i))
 
-    def activate_behavior(self):
+    def activate_behavior(self, behavior):
         pass
 
     def deactivate_behavior(self):
@@ -53,22 +62,34 @@ class Controller:
     # Run_one_Timestep kjører metodene under den.
 
     def run_one_timestep(self):
-        pass
+        while True:
+            self.update_all_sensobs()
+            self.update_all_behaviors()
+            self.invoke_arbitrator()
+            self.update_all_motobs()
+            self.wait()
+            self.reset_the_sensobs()
 
     def update_all_sensobs(self):
-        pass
+        for sensob in self.sensob_list:
+            sensob.update()
 
     def update_all_behaviors(self):
-        pass
+        for behavior in self.sensob_list:
+            behavior.update_values()
 
     def invoke_arbitrator(self):
-        self.arbitrator.choose_action
+        self.arbitrator.choose_action()
 
     def update_all_motobs(self):
-        pass
+        for motob in self.sensob_list:
+            motob.update()
 
     def wait(self):
-        pass
+        time.sleep(0.5)
 
     def reset_the_sensobs(self):
-        pass
+        for sensob in self.sensob_list:
+            sensob.reset_sensor()
+
+test = Controller()

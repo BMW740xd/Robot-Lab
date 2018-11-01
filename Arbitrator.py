@@ -1,3 +1,4 @@
 class Arbitrator:
 
-    pass
+    def choose_action(self):
+        pass
