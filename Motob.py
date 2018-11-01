@@ -1,0 +1,3 @@
+class Motob:
+
+    pass
