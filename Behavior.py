@@ -29,6 +29,7 @@ class Behavior:
 
 
     def update_values(self):
+        self.sensobs = self.bbcon.sensobs
         self.values = []
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
@@ -102,7 +103,7 @@ class Behavior:
 
         elif self.behavior == 3: # holde seg på linjen, må svinge, avhenger av side den er på avveie
             minst = 99
-            # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre 
+            # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre
             for n in self.values[2]:
                 if n <= minst:
                     minst = n
