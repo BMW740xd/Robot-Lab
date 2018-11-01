@@ -1,3 +1,7 @@
 class Motob:
 
-    pass
+    def operationalize(self):
+        pass
+
+    def update(self):
+        pass
