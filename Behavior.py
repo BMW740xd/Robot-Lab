@@ -25,24 +25,26 @@ class Behavior:
         self.match_degree = 0 # tall i iintervall [0,1], settes i sence_and_act
         self.weight = self.priority * self.match_degree
         self.behavior = behavior # et tall som sier hva slags behavior vi er på, vi har foreløpig 4 stk, se øverst
+        self.values = []
+
+
+    def update_values(self):
+        self.values = []
+        for sensob in self.sensobs:
+            self.values.append((sensob.get_value()))
 
 
     def consider_deactivation(self): # naar self er active, sjekker om den bor vare inactive
-
-        values = [] # en liste med verdiene som hver sensor får
-        for sensob in self.sensobs:
-            values.apppend(sensob.get_value())
-
-
+        self.update_values()
         if self.behavior == 1: #sjekker om det er "unngå kollisjon", value er da et tall, float
-            if values[0] > 5: #eller et tall vi bestemmer som avstand der den bor snu/stoppe
+            if self.values[0] > 5: #eller et tall vi bestemmer som avstand der den bor snu/stoppe
                 self.active_flag = False
 
         elif self.behavior == 2: #sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
             pass
 
         elif self.behavior == 3: #sjekker om det er "holde seg på linje"
-            for n in values[1]: #går gjennom de 6 tallene i listen
+            for n in self.values[1]: #går gjennom de 6 tallene i listen
                 if n > 0.2: #igjen et tall vi bestemmer, som gjør at den deaktiveres
                     self.active_flag = False
 
@@ -50,19 +52,12 @@ class Behavior:
             self.active_flag == True
 
 
-        pass
-
 
 
     def consider_activation(self): # naar self er inactive, sjekker om den bor vare active
-
-        values = []
-        for sensob in self.sensobs:
-            values.append(sensob.get_value())
-
-
+        self.update_values()
         if self.behavior == 1: #unngå kollisjon, ur, value er float
-            if values[0] < 5: #er den mindre enn dette må den aktiveres
+            if self.values[0] <= 5: #er den mindre enn dette må den aktiveres
                 self.active_flag = True
 
         elif self.behavior == 2: #kamera
@@ -70,8 +65,8 @@ class Behavior:
 
         elif self.behavior == 3: #IR, sjekker linje
             utenfor = False
-            for n in values[1]:
-                if n < 0.2: #mindre så er den svart så trenger ikke denne lenger
+            for n in self.values[1]:
+                if n < 0.2: #mindre så er den svart og er da på vei vekk fra linjen, må snu
 
                     self.active_flag = True
 
@@ -93,7 +88,14 @@ class Behavior:
         self.weight = self.priority * self.match_degree
 
     def sense_and_act(self): # setter motrec, match_degree og muligens halt_request
-        pass
+        self.update_values()
+
+        if self.behavior == 1: #den er aktiv aka skal unngaa kollisjon, må da kjøre bakover
+            #må sjekke hva value er og regne ut en match_degree
+            #den er kun aktiv hvis man er så og så nærme, høyere match_degree jo nærmere objektet
+
+            self.match_degree = 5 -
+
 
 
 
