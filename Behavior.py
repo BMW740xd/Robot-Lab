@@ -106,7 +106,7 @@ class Behavior:
 
             # må så utfra match_degree sette motrec
             # motrec vil da gi en retning, typ kjør nord-vest utfra hvor det er sterkest rød-farge
-            
+
 
 
         elif self.behavior == 3:  # holde seg på linjen, må svinge, avhenger av side den er på avveie
