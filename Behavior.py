@@ -94,7 +94,20 @@ class Behavior:
             self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob
 
         elif self.behavior == 2:  # kamera, hva gjøres her
-            return
+            image = self.values[1]
+
+            hits = 0
+            for x in image.img_width: #står i camera, men finnes disse i image-objektet?
+                for y in image.img_height: #kan også være bare for y in range(96)
+                    r, g, b = image.getpixel((x, y)) #fra imager2
+                    if r > 100: # er det nok rødfarge her til at vi bryr oss? finne bedre tall enn 100
+                        hits += 1
+            self.match_degree = hits / 12288 # 12 288 = 128 * 96
+
+            # må så utfra match_degree sette motrec
+            # motrec vil da gi en retning, typ kjør nord-vest utfra hvor det er sterkest rød-farge
+            
+
 
         elif self.behavior == 3:  # holde seg på linjen, må svinge, avhenger av side den er på avveie
             minst = 99
@@ -102,3 +115,7 @@ class Behavior:
             for n in self.values[2]:
                 if n <= minst:
                     minst = n
+
+        elif self.behavior == 4:
+            self.match_degree = 1
+            self.motor_recommendations = 'F'
