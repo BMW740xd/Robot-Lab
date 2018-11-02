@@ -81,7 +81,7 @@ class Behavior:
             utenfor = False
             for n in self.values[1]:  # funker dette egt??
                 if n < 0.2:  # mindre så er den svart og er da på vei vekk fra linjen, må snu
-
+                     #hva skal stå her
                     self.active_flag = True
 
         elif self.behavior == 4:
