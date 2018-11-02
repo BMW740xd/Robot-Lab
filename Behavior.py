@@ -34,6 +34,19 @@ class Behavior:
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
 
+
+    def img_hits(self):
+        image = self.values[1]
+        hits = 0
+        for x in image.img_width:  # står i camera, men finnes disse i image-objektet?
+            for y in image.img_height:  # kan også være bare for y in range(96)
+                r, g, b = image.getpixel((x, y))  # fra imager2
+                if r > 100:  # er det nok rødfarge her til at vi bryr oss? finne bedre tall enn 100
+                    hits += 1
+        return hits
+
+
+
     def consider_deactivation(self):  # naar self er active, sjekker om den bor vare inactive
         self.update_values()
         if self.behavior == 1:  # sjekker om det er "unngå kollisjon", value er da et tall, float
@@ -41,7 +54,9 @@ class Behavior:
                 self.active_flag = False
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
-            pass
+            hits = self.img_hits()  # hits er et tall mellom 0 og 12288 som sier hvor mange pixel som har nok rød til at vi bryr oss
+            if hits < 100:  # finne et tall som betyr at det faktisk er en rød ball i bildet
+                self.active_flag = False
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
             for n in self.values[1]:  # går gjennom de 6 tallene i listen
@@ -58,7 +73,9 @@ class Behavior:
                 self.active_flag = True
 
         elif self.behavior == 2:  # kamera
-            pass
+            hits = self.img_hits() #hits er et tall mellom 0 og 12288 som sier hvor mange pixel som har nok rød til at vi bryr oss
+            if hits > 100: # finne et tall som betyr at det faktisk er en rød ball i bildet
+                self.active_flag = True
 
         elif self.behavior == 3:  # IR, sjekker linje
             utenfor = False
@@ -69,6 +86,8 @@ class Behavior:
 
         elif self.behavior == 4:
             self.active_flag = True
+
+
 
     def update(self):  # oppdater active_flag
 
@@ -83,6 +102,8 @@ class Behavior:
 
         self.weight = self.priority * self.match_degree
 
+
+
     def sense_and_act(self):  # setter motrec, match_degree og muligens halt_request
         self.update_values()
 
@@ -94,14 +115,7 @@ class Behavior:
             self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob
 
         elif self.behavior == 2:  # kamera, hva gjøres her
-            image = self.values[1]
-
-            hits = 0
-            for x in image.img_width: #står i camera, men finnes disse i image-objektet?
-                for y in image.img_height: #kan også være bare for y in range(96)
-                    r, g, b = image.getpixel((x, y)) #fra imager2
-                    if r > 100: # er det nok rødfarge her til at vi bryr oss? finne bedre tall enn 100
-                        hits += 1
+            hits = self.img_hits()
             self.match_degree = hits / 12288 # 12 288 = 128 * 96
 
             # må så utfra match_degree sette motrec
