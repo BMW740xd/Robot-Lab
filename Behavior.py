@@ -124,11 +124,25 @@ class Behavior:
 
 
         elif self.behavior == 3:  # holde seg på linjen, må svinge, avhenger av side den er på avveie
-            minst = 99
             # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre
+            verdier = []
             for n in self.values[2]:
-                if n <= minst:
-                    minst = n
+                verdier.append(n) #lager bare liste med verdier til IR-sensoren
+
+            if verdier[2] < 0.2 and verdier[3] < 0.2: #teipen er på midten
+                self.motor_recommendations = ['F', 0]
+            elif verdier[0] < 0.2 and verdier[1] < 0.2: #teipen er langt til venstre
+                self.motor_recommendations = ['R', 20] #20 er en slags duration
+            elif verdier[1] < 0.2 and verdier[2] < 0.2:
+                self.motor_recommendations = ['R', 10]
+            elif verdier[3] < 0.2 and verdier[4] < 0.2:
+                self.motor_recommendations = ['L', 10]
+            elif verdier[4] < 0.2 and verdier[5] < 0.2:
+                self.motor_recommendations = ['L', 20]
+            else:
+                self.halt_request = True
+
+
 
         elif self.behavior == 4:
             self.match_degree = 1
