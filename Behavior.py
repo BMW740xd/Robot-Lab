@@ -35,7 +35,7 @@ class Behavior:
             self.values.append((sensob.get_value()))
 
 
-    def img_hits(self):
+    def img_hits(self): # hits er pixler
         image = self.values[1]
         hits = 0
         for x in image.img_width:  # står i camera, men finnes disse i image-objektet?
@@ -50,7 +50,7 @@ class Behavior:
     def consider_deactivation(self):  # naar self er active, sjekker om den bor vare inactive
         self.update_values()
         if self.behavior == 1:  # sjekker om det er "unngå kollisjon", value er da et tall, float
-            if self.values[0] > 5:  # eller et tall vi bestemmer som avstand der den bor snu/stoppe
+            if self.values[0] > 5:  # et tall vi bestemmer som avstand der den bor snu/stoppe
                 self.active_flag = False
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
@@ -60,7 +60,9 @@ class Behavior:
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
             for n in self.values[1]:  # går gjennom de 6 tallene i listen
-                if n > 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
+                if n < 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
+                    return
+                else:
                     self.active_flag = False
 
         elif self.behavior == 4:
@@ -78,10 +80,8 @@ class Behavior:
                 self.active_flag = True
 
         elif self.behavior == 3:  # IR, sjekker linje
-            utenfor = False
-            for n in self.values[1]:  # funker dette egt??
-                if n < 0.2:  # mindre så er den svart og er da på vei vekk fra linjen, må snu
-                     #hva skal stå her
+            for n in self.values[1]:
+                if n < 0.2:  # sjekker om den er på teipen eller ei, hvis én e på teipen så er den aktiv
                     self.active_flag = True
 
         elif self.behavior == 4:
@@ -125,6 +125,7 @@ class Behavior:
 
         elif self.behavior == 3:  # holde seg på linjen, må svinge, avhenger av side den er på avveie
             # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre
+            self.match_degree = 2
             verdier = []
             for n in self.values[2]:
                 verdier.append(n) #lager bare liste med verdier til IR-sensoren
@@ -141,6 +142,7 @@ class Behavior:
                 self.motor_recommendations = ['L', 20]
             else:
                 self.halt_request = True
+                self.consider_deactivation() #trengs denne?
 
 
 
