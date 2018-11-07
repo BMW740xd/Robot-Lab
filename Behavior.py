@@ -14,6 +14,9 @@ import Controller
 # eller noe som alltid skal være aktiv men har lav priority slik at den kun
 # brukes hvis ingen av de andre har noen match_degree
 
+# kamera kan implenteres litt som vi ønsker, om vi vil ha at den kjører mot et objekt av en spesiell farge
+# eller om den skal bare stoppe hvis alt er hvitt i bildet aka den er kommet frem til boksen e.l
+
 class Behavior:
 
     def __init__(self, controller_object, priority, behavior):
@@ -35,15 +38,33 @@ class Behavior:
             self.values.append((sensob.get_value()))
 
 
-    def img_hits(self): # hits er pixler
+    def img_hits(self): # hits er pixler, sjekker om vi har et lyst eller mørkt bilde
         image = self.values[1]
+        width = image.img_width
+        height = image.img_height
         hits = 0
-        for x in image.img_width:  # står i camera, men finnes disse i image-objektet?
-            for y in image.img_height:  # kan også være bare for y in range(96)
+        left = 0
+        mid = 0
+        right = 0
+        for x in width:  # står i camera, men finnes disse i image-objektet?
+            for y in height:  # kan også være bare for y in range(96)
                 r, g, b = image.getpixel((x, y))  # fra imager2
-                if r > 100:  # er det nok rødfarge her til at vi bryr oss? finne bedre tall enn 100
+                if b < r and b < g or r == g == b:  # er det lyst nok bilde til at vi bryr oss?
                     hits += 1
-        return hits
+                    if x < x/3: #disse finner ut om pixelen er til venstre, høyre eller midt i bildet
+                        left += 1
+                    elif x > x/3 and x < 2*x/3:
+                        mid += 1
+                    elif x > 2*x/3:
+                        right += 1
+        maks = ""
+        if (left>right) and (left > mid):
+            maks = "Left"
+        elif (right > left) and (right > mid):
+            maks = "Right"
+        else:
+            maks = "Mid"
+        return hits, maks
 
 
 
@@ -54,8 +75,8 @@ class Behavior:
                 self.active_flag = False
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
-            hits = self.img_hits()  # hits er et tall mellom 0 og 12288 som sier hvor mange pixel som har nok rød til at vi bryr oss
-            if hits < 100:  # finne et tall som betyr at det faktisk er en rød ball i bildet
+            hits = self.img_hits()  # hits er et tall som sier noe om bildet er lyst nok til at vi bryr oss
+            if not hits:
                 self.active_flag = False
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
@@ -75,8 +96,8 @@ class Behavior:
                 self.active_flag = True
 
         elif self.behavior == 2:  # kamera
-            hits = self.img_hits() #hits er et tall mellom 0 og 12288 som sier hvor mange pixel som har nok rød til at vi bryr oss
-            if hits > 100: # finne et tall som betyr at det faktisk er en rød ball i bildet
+            hits = self.img_hits()  # hits er True eller False som sier noe om bildet er lyst nok til at vi bryr oss
+            if hits:
                 self.active_flag = True
 
         elif self.behavior == 3:  # IR, sjekker linje
@@ -115,8 +136,15 @@ class Behavior:
             self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob
 
         elif self.behavior == 2:  # kamera, hva gjøres her
-            hits = self.img_hits()
-            self.match_degree = hits / 12288 # 12 288 = 128 * 96
+            hits, maks = self.img_hits()
+            self.match_degree = hits /12288
+            if maks == "Left":
+                self.motor_recommendations = ['L', 10]
+            elif maks == "Mid":
+                self.motor_recommendations = ['F', 0]
+            elif maks == "Right":
+                self.motor_recommendations = ['R', 10]
+            else: self.halt_request = True
 
             # må så utfra match_degree sette motrec
             # motrec vil da gi en retning, typ kjør nord-vest utfra hvor det er sterkest rød-farge
