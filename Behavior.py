@@ -51,13 +51,12 @@ class Behavior:
                 r, g, b = image.getpixel((x, y))  # fra imager2
                 if b < r and b < g or r == g == b:  # er det lyst nok bilde til at vi bryr oss?
                     hits += 1
-                    if x < x/3: #disse finner ut om pixelen er til venstre, høyre eller midt i bildet
+                    if x < x/3: #disse finner ut om pixelen er til venstre, høyre eller midt av bildet
                         left += 1
                     elif x > x/3 and x < 2*x/3:
                         mid += 1
                     elif x > 2*x/3:
                         right += 1
-        maks = ""
         if (left>right) and (left > mid):
             maks = "Left"
         elif (right > left) and (right > mid):
@@ -139,11 +138,11 @@ class Behavior:
             hits, maks = self.img_hits()
             self.match_degree = hits /12288
             if maks == "Left":
-                self.motor_recommendations = ['L', 10]
+                self.motor_recommendations = 'FL'
             elif maks == "Mid":
-                self.motor_recommendations = ['F', 0]
+                self.motor_recommendations = 'F'
             elif maks == "Right":
-                self.motor_recommendations = ['R', 10]
+                self.motor_recommendations = 'FR'
             else: self.halt_request = True
 
             # må så utfra match_degree sette motrec
@@ -159,15 +158,15 @@ class Behavior:
                 verdier.append(n) #lager bare liste med verdier til IR-sensoren
 
             if verdier[2] < 0.2 and verdier[3] < 0.2: #teipen er på midten
-                self.motor_recommendations = ['F', 0]
+                self.motor_recommendations = 'F'
             elif verdier[0] < 0.2 and verdier[1] < 0.2: #teipen er langt til venstre
-                self.motor_recommendations = ['R', 20] #20 er en slags duration
+                self.motor_recommendations = 'R' #20 er en slags duration
             elif verdier[1] < 0.2 and verdier[2] < 0.2:
-                self.motor_recommendations = ['R', 10]
+                self.motor_recommendations = 'FR'
             elif verdier[3] < 0.2 and verdier[4] < 0.2:
-                self.motor_recommendations = ['L', 10]
+                self.motor_recommendations = 'FL'
             elif verdier[4] < 0.2 and verdier[5] < 0.2:
-                self.motor_recommendations = ['L', 20]
+                self.motor_recommendations = 'L'
             else:
                 self.halt_request = True
                 self.consider_deactivation() #trengs denne?
