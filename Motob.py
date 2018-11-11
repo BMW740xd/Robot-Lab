@@ -10,13 +10,14 @@ class Motob:
                        "B":self.motors.backward(),
                        "L":self.motors.left(),
                        "R":self.motors.right(),
-                       "S":self.motors.stop()}
+                       "S":self.motors.stop(),
+                       "FL":self.motors.forward_left(),
+                       "FR":self.motors.forward_right()}
+
 
     def operationalize(self,recommendation):
-        #sjekker om recommendation er i dictionary
-        if recommendation in self.settings:
-            #utfører recommendation
-            self.settings.get(recommendation)
+        if recommendation in self.settings: #sjekker om recommendation er i dictionary
+            self.settings.get(recommendation) #utfører recommendation
         else:
             pass #gjør ingenting ellers
 
