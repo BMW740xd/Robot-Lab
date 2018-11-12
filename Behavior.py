@@ -34,7 +34,7 @@ class Behavior:
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
 
-    def img_hits(self):  # hits er pixler, sjekker om vi har et lyst eller mørkt bilde
+    def img_hits(self):  # hits er pixler, sjekker hvor i bildet det er rødt
         image = self.values[1]
         width = image.img_width
         height = image.img_height
@@ -45,7 +45,7 @@ class Behavior:
         for x in width:  # står i camera, men finnes disse i image-objektet?
             for y in height:  # kan også være bare for y in range(96)
                 r, g, b = image.getpixel((x, y))  # fra imager2
-                if b < r and b < g or r == g == b:  # er det lyst nok bilde til at vi bryr oss?
+                if r > 100 and g < 100 and b < 100:  # er det nok rødt til at vi bryr oss
                     hits += 1
                     if x < x / 3:  # disse finner ut om pixelen er til venstre, høyre eller midt av bildet
                         left += 1
@@ -68,8 +68,8 @@ class Behavior:
                 self.active_flag = False
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
-            hits = self.img_hits()  # hits er et tall som sier noe om bildet er lyst nok til at vi bryr oss
-            if not hits:
+            hits = self.img_hits()  # hits er et tall som sier noe om bildet har nok rød til at vi bryr oss
+            if hits < 1000: #her finne et mer riktig tall?
                 self.active_flag = False
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
@@ -90,7 +90,7 @@ class Behavior:
 
         elif self.behavior == 2:  # kamera
             hits = self.img_hits()  # hits er True eller False som sier noe om bildet er lyst nok til at vi bryr oss
-            if hits:
+            if hits > 1000: # finne et annet tall? -> har vi nok rødt til at vi bry oss
                 self.active_flag = True
 
         elif self.behavior == 3:  # IR, sjekker linje
@@ -122,7 +122,7 @@ class Behavior:
             # den er kun aktiv hvis man er så og så nærme, høyere match_degree jo nærmere objektet
 
             self.match_degree = 5 - self.values[0] / 5  # jo høyere value jo mindre match_degree, mindre "urgent"
-            self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob
+            self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob, kanskje legge på en spinn slik at den bytter retning, ikke bare kjører rett bakover
 
         elif self.behavior == 2:  # kamera, hva gjøres her
             hits, maks = self.img_hits()
@@ -151,7 +151,7 @@ class Behavior:
             if verdier[2] < 0.2 and verdier[3] < 0.2:  # teipen er på midten
                 self.motor_recommendations = 'F'
             elif verdier[0] < 0.2 and verdier[1] < 0.2:  # teipen er langt til venstre
-                self.motor_recommendations = 'R'  # 20 er en slags duration
+                self.motor_recommendations = 'R'
             elif verdier[1] < 0.2 and verdier[2] < 0.2:
                 self.motor_recommendations = 'FR'
             elif verdier[3] < 0.2 and verdier[4] < 0.2:
