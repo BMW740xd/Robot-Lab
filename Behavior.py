@@ -1,6 +1,3 @@
-import Controller
-
-
 # Vi har 4 behaviors:
 #   1 unngå kollisjon, denne har høyest prioritet (US)
 #   2 se etter objekt, f.eks rødt, denne har nest høyest (kamera)

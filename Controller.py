@@ -42,8 +42,6 @@ class Controller:
         self.add_behavior(self.antall_behaviors)
         self.add_sensob(self.antall_sensorer)
         self.run_one_timestep()
-        self.test_list = []
-        Behavior.Behavior(self, 2, 3)
 
     def add_behavior(self, antall):  # Oppretter og legger til oppforselsobjektene i en liste "behavior_list"
         for i in range(antall):
