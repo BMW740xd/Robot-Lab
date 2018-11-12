@@ -47,17 +47,17 @@ class Controller:
 
     def add_behavior(self, antall):  # Oppretter og legger til oppforselsobjektene i en liste "behavior_list"
         for i in range(antall):
-            self.behavior_list.append(Behavior.Behavior(self, self.priority_list[i], antall + 1))
+            self.behavior_list.append(Behavior.Behavior(self, self.priority_list[i], i+1))
 
     def add_sensob(self, antall):  # Oppretter og legger til sensorobjektene i en liste "sensob_list"
         for i in range(antall):
             self.sensob_list.append(Sensob.Sensob(i))
 
     def activate_behavior(self, behavior):
-        pass
+        self.active_behavior_list.append(behavior)
 
-    def deactivate_behavior(self):
-        pass
+    def deactivate_behavior(self, behavior):
+        self.active_behavior_list.remove(behavior)
 
     # Run_one_Timestep kjører metodene under den.
 
@@ -76,7 +76,7 @@ class Controller:
 
     def update_all_behaviors(self):
         for behavior in self.sensob_list:
-            behavior.update_values()
+            behavior.update()
 
     def invoke_arbitrator(self):
         self.arbitrator.choose_action()
