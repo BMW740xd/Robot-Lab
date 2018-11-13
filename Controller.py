@@ -34,7 +34,7 @@ class Controller:
     sensob_list = []
     motob_list = []
     priority_list = [0.7, 0.3, 0.2, 0.1]
-    antall_sensorer = 6
+    antall_sensorer = 4
     antall_behaviors = 4
 
     def __init__(self):  # Starter roboten ved å legge til oppforsel og sensorobjektene
@@ -71,11 +71,12 @@ class Controller:
 
     def update_all_sensobs(self):
         for sensob in self.sensob_list:
-            sensob.update()
+            sensob.update(sensob)
 
     def update_all_behaviors(self):
-        for behavior in self.active_behavior_list:
+        for behavior in self.behavior_list:
             behavior.update()
+            print(behavior)
 
     def invoke_arbitrator(self):
         self.arbitrator.choose_action()

@@ -107,12 +107,16 @@ class Behavior:
         if self.active_flag:
             self.bbcon.activate_bahvaior(self)
 
+
+
     def update(self):  # oppdater active_flag
 
         if self.active_flag:
+            print(self.active_flag)
             self.consider_deactivation()
 
         else:
+            print(self.active_flag)
             self.consider_activation()
 
         if self.active_flag:
