@@ -16,7 +16,6 @@ class Ultrasonic():
 
     def update(self):
         self.value = self.sensor_get_value()
-        return self.value
 
     def reset(self):
         self.value = None
@@ -39,6 +38,7 @@ class Ultrasonic():
         # Vi finner tiden paa siste gang echo signalet er lavt
         signaloff_start = time.time()
         signaloff = signaloff_start
+
         # signalet timer ut dersom det tar mer en 0.5 s, da annsees det som tapt og vi prover igjen
         while read_val == 0 and signaloff - signaloff_start < 0.5:
             read_val = GPIO.input(self.echo_pin)

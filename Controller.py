@@ -92,6 +92,6 @@ class Controller:
 
     def reset_the_sensobs(self):
         for sensob in self.sensob_list:
-            sensob.reset_sensor()
+            sensob.reset()
 
-
+test = Controller()
