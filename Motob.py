@@ -1,4 +1,4 @@
-from motors1 import *
+from motors import *
 
 
 class Motob:
