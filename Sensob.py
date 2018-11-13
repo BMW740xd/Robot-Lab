@@ -10,7 +10,7 @@ class Sensob:
         self.sensors = [sensor]
         self.value = None
 
-    def update(self, sensor):
+    def update(self):
         pass
 
     def get_value(self):
@@ -25,7 +25,7 @@ class UltrasonicSensob(Sensob):
     def __init__(self, sensor):
         super().__init__(sensor)
 
-    def update(self, sensor):
+    def update(self):
         # Sjekker om sensoren i listen med sensorer er av type "ultrasonic"
         for sensor in self.sensors:
             if isinstance(sensor, Ultrasonic):
@@ -38,7 +38,7 @@ class ReflectanceSensob(Sensob):
     def __init__(self, sensor):
         super().__init__(sensor)
 
-    def update(self, sensor):
+    def update(self):
         # Sjekker om sensoren i listen med sensorer er av type "reflectance"
         for sensor in self.sensors:
             if isinstance(sensor, ReflectanceSensors):
@@ -53,7 +53,7 @@ class CameraSensob(Sensob):
     def __init__(self, sensor):
         super().__init__(sensor)
 
-    def update(self, sensor):
+    def update(self):
         # Sjekker om sensoren i listen med sensorer er av type "camera"
         for sensor in self.sensors:
             if isinstance(sensor, Camera):
