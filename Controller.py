@@ -41,6 +41,7 @@ class Controller:
     def __init__(self):  # Starter roboten ved å legge til oppforsel og sensorobjektene
         self.add_behavior(self.antall_behaviors)
         self.add_sensob(self.antall_sensorer)
+        self.motob_c = Motob.Motob()
         self.run_one_timestep()
 
     def add_behavior(self, antall):  # Oppretter og legger til oppforselsobjektene i en liste "behavior_list"
@@ -80,8 +81,8 @@ class Controller:
         self.arbitrator.choose_action()
 
     def update_all_motobs(self):
-        for motob in self.motob_list:
-            motob.update()
+        #for motob in self.motob_list:
+        self.motob_c.update()
 
     def wait(self):
         time.sleep(0.5)
