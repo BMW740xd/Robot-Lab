@@ -46,21 +46,23 @@ class Behavior:
         for x in range(width):  # står i camera, men finnes disse i image-objektet?
             for y in range(height):  # kan også være bare for y in range(96)
                 r, g, b = image.getpixel((x, y))  # fra imager2
-                print(r,g,b)
                 if r > 100 and g < 100 and b < 100:  # er det nok rødt til at vi bryr oss
                     hits += 1
-                    if x < x / 3:  # disse finner ut om pixelen er til venstre, høyre eller midt av bildet
+                    if x < width/3:  # disse finner ut om pixelen er til venstre, høyre eller midt av bildet
                         left += 1
-                    elif x / 3 < x < 2 * x / 3:
+                    elif width / 3 < x < 2 * width / 3:
                         mid += 1
-                    elif x > 2 * x / 3:
+                    elif x > 2 * width / 3:
                         right += 1
         if (left > right) and (left > mid):
             maks = "Left"
         elif (right > left) and (right > mid):
             maks = "Right"
-        else:
+        elif (mid > left) and (mid > right):
             maks = "Mid"
+        else:
+            print("FEIL")
+            raise ValueError
         return hits, maks
 
     def consider_deactivation(self):  # naar self er active, sjekker om den bor vare inactive

@@ -16,7 +16,7 @@ class Sensob:
     def update(self):
         if self.sensor == 1: #sjekker om sensoren er av type "ultrasonic"
             # setter verdien til sensob til verdien(float) som ultrasonic gir, det er altså avstanden til en hindring
-            self.value = self.u.sensor_get_value()
+            self.value = self.u.update()
 
         elif self.sensor==2: #sjekker om sensoren er av type "camera"
             # setter verdien til sensob til et array av 6 elementer, tallene varierer mellom 0 og 1
