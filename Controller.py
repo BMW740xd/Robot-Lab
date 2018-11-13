@@ -36,6 +36,7 @@ class Controller:
     priority_list = [0.7, 0.3, 0.2, 0.1]
     antall_sensorer = 3
     antall_behaviors = 4
+    tuppel = ()
 
     def __init__(self):  # Starter roboten ved å legge til oppforsel og sensorobjektene
         self.add_behavior(self.antall_behaviors)
@@ -80,11 +81,11 @@ class Controller:
             behavior.update()
 
     def invoke_arbitrator(self):
-        self.arbitrator.choose_action()
+        self.tuppel = self.arbitrator.choose_action()
 
     def update_all_motobs(self):
         # for motob in self.motob_list:
-        self.motob_c.update(self.invoke_arbitrator()[0],self.invoke_arbitrator()[1])
+        self.motob_c.update(self.tuppel[0], self.tuppel[1])
 
     def wait(self):
         time.sleep(0.5)
@@ -93,4 +94,4 @@ class Controller:
         for sensob in self.sensob_list:
             sensob.reset_sensor()
 
-test = Controller()
+
