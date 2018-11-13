@@ -116,6 +116,7 @@ class Behavior:
 
     def sense_and_act(self):  # setter motrec, match_degree og muligens halt_request
         self.update_values()
+        print(self.behavior)
 
         if self.behavior == 1:  # den er aktiv aka skal unngaa kollisjon, må da kjøre bakover
             # må sjekke hva value er og regne ut en match_degree
@@ -126,6 +127,7 @@ class Behavior:
 
         elif self.behavior == 2:  # kamera, hva gjøres her
             hits, maks = self.img_hits()
+            print(hits, maks)
             self.match_degree = hits / 12288
             if maks == "Left":
                 self.motor_recommendations = 'FL'
