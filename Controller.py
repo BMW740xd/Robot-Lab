@@ -50,7 +50,7 @@ class Controller:
 
     def add_sensob(self, antall):  # Oppretter og legger til sensorobjektene i en liste "sensob_list"
         for i in range(antall):
-            self.sensob_list.append(Sensob.Sensob(i))
+            self.sensob_list.append(Sensob.Sensob(i+1))
 
     def activate_behavior(self, behavior):
         self.active_behavior_list.append(behavior)
