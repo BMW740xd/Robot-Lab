@@ -1,4 +1,4 @@
-import Arbitrator
+from Arbitrator import Arbitrator
 import Sensob
 import Motob
 import Behavior
@@ -33,7 +33,7 @@ class Controller:
     active_behavior_list = []
     sensob_list = []
     motob_list = []
-    arbitrator = Arbitrator.Arbitrator()
+    arbitrator = Arbitrator()
     priority_list = [0.7, 0.3, 0.2, 0.1]
     antall_sensorer = 6
     antall_behaviors = 4
