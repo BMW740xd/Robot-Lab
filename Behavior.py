@@ -33,7 +33,7 @@ class Behavior:
         self.values = []
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
-        print(self.values)
+        print("verdier i values:", self.values)
 
     def img_hits(self):  # hits er pixler, sjekker hvor i bildet det er rødt
         image = self.values[1]
@@ -111,6 +111,7 @@ class Behavior:
 
 
     def update(self):  # oppdater active_flag
+        print("naa er vi i update")
 
         if self.active_flag:
             print(self.active_flag)
