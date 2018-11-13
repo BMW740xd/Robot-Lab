@@ -82,7 +82,7 @@ class Controller:
 
     def update_all_motobs(self):
         # for motob in self.motob_list:
-        self.motob_c.update()
+        self.motob_c.update(self.invoke_arbitrator()[0],self.invoke_arbitrator()[1])
 
     def wait(self):
         time.sleep(0.5)
