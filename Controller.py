@@ -73,14 +73,14 @@ class Controller:
             sensob.update()
 
     def update_all_behaviors(self):
-        for behavior in self.sensob_list:
+        for behavior in self.active_behavior_list:
             behavior.update()
 
     def invoke_arbitrator(self):
         self.arbitrator.choose_action()
 
     def update_all_motobs(self):
-        for motob in self.sensob_list:
+        for motob in self.motob_list:
             motob.update()
 
     def wait(self):

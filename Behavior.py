@@ -49,7 +49,7 @@ class Behavior:
                     hits += 1
                     if x < x / 3:  # disse finner ut om pixelen er til venstre, høyre eller midt av bildet
                         left += 1
-                    elif x > x / 3 and x < 2 * x / 3:
+                    elif x / 3 < x < 2 * x / 3:
                         mid += 1
                     elif x > 2 * x / 3:
                         right += 1
@@ -82,6 +82,9 @@ class Behavior:
         elif self.behavior == 4:
             self.active_flag = True
 
+        if not self.active_flag:
+            self.bbcon.deactivate_beavior(self)
+
     def consider_activation(self):  # naar self er inactive, sjekker om den bor vare active
         self.update_values()
         if self.behavior == 1:  # unngå kollisjon, ur, value er float
@@ -100,6 +103,9 @@ class Behavior:
 
         elif self.behavior == 4:
             self.active_flag = True
+
+        if self.active_flag:
+            self.bbcon.activate_bahvaior(self)
 
     def update(self):  # oppdater active_flag
 
