@@ -73,8 +73,10 @@ class Controller:
         for sensob in self.sensob_list:
             sensob.update()
 
+
+
     def update_all_behaviors(self):
-        for behavior in self.active_behavior_list:
+        for behavior in self.behavior_list:
             behavior.update()
 
     def invoke_arbitrator(self):

@@ -33,19 +33,20 @@ class Behavior:
         self.values = []
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
-        print(self.values)
+        print("verdier i values:", self.values)
 
     def img_hits(self):  # hits er pixler, sjekker hvor i bildet det er rødt
         image = self.values[1]
-        width = image.img_width
-        height = image.img_height
+        width = 128
+        height = 96
         hits = 0
         left = 0
         mid = 0
         right = 0
-        for x in width:  # står i camera, men finnes disse i image-objektet?
-            for y in height:  # kan også være bare for y in range(96)
+        for x in range(width):  # står i camera, men finnes disse i image-objektet?
+            for y in range(height):  # kan også være bare for y in range(96)
                 r, g, b = image.getpixel((x, y))  # fra imager2
+                print(r,g,b)
                 if r > 100 and g < 100 and b < 100:  # er det nok rødt til at vi bryr oss
                     hits += 1
                     if x < x / 3:  # disse finner ut om pixelen er til venstre, høyre eller midt av bildet
@@ -69,12 +70,12 @@ class Behavior:
                 self.active_flag = False
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
-            hits = self.img_hits()  # hits er et tall som sier noe om bildet har nok rød til at vi bryr oss
+            hits,maks = self.img_hits()  # hits er et tall som sier noe om bildet har nok rød til at vi bryr oss
             if hits < 1000: #her finne et mer riktig tall?
                 self.active_flag = False
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
-            for n in self.values[1]:  # går gjennom de 6 tallene i listen
+            for n in self.values[2]:  # går gjennom de 6 tallene i listen
                 if n < 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
                     return
                 else:
@@ -84,7 +85,7 @@ class Behavior:
             self.active_flag = True
 
         if not self.active_flag:
-            self.bbcon.deactivate_beavior(self)
+            self.bbcon.deactivate_behavior(self)
 
     def consider_activation(self):  # naar self er inactive, sjekker om den bor vare active
         self.update_values()
@@ -93,12 +94,12 @@ class Behavior:
                 self.active_flag = True
 
         elif self.behavior == 2:  # kamera
-            hits = self.img_hits()  # hits er True eller False som sier noe om bildet er lyst nok til at vi bryr oss
+            hits,maks = self.img_hits()  # hits er True eller False som sier noe om bildet er lyst nok til at vi bryr oss
             if hits > 1000: # finne et annet tall? -> har vi nok rødt til at vi bry oss
                 self.active_flag = True
 
         elif self.behavior == 3:  # IR, sjekker linje
-            for n in self.values[1]:
+            for n in self.values[2]:
                 if n < 0.2:  # sjekker om den er på teipen eller ei, hvis én e på teipen så er den aktiv
                     self.active_flag = True
 
@@ -106,7 +107,7 @@ class Behavior:
             self.active_flag = True
 
         if self.active_flag:
-            self.bbcon.activate_bahvaior(self)
+            self.bbcon.activate_behavior(self)
 
 
 
