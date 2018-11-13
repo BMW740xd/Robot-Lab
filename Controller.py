@@ -34,11 +34,7 @@ class Controller:
     sensob_list = []
     motob_list = []
     priority_list = [0.7, 0.3, 0.2, 0.1]
-<<<<<<< HEAD
     antall_sensorer = 3
-=======
-    antall_sensorer = 4
->>>>>>> c26153f46cd508a9ed5069d72f59a94037fd5ad0
     antall_behaviors = 4
 
     def __init__(self):  # Starter roboten ved å legge til oppforsel og sensorobjektene
