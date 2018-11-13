@@ -196,3 +196,4 @@ def reformat(in_fid, out_ext='jpeg',scalex=1.0,scaley=1.0):
     im = Imager(in_fid)
     im = im.scale(scalex,scaley)
     im.dump_image(base,out_ext)
+
