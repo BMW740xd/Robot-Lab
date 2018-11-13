@@ -1,11 +1,11 @@
-import motors
+from motors import *
 import zumo_button
 
 
 class Test:
 
     def drive(self):
-        m = motors.Motors
+        m = Motors()
         m.forward(.2, 3)
         print("I bevegelse")
 
