@@ -21,9 +21,9 @@ class ReflectanceSensors():
                 self.max_val[i] = max_reading
                 self.min_val[i] = min_reading
 
-        print("Calibration results")
-        print(self.max_val)
-        print(self.min_val)
+        #print("Calibration results")
+        #print(self.max_val)
+        #print(self.min_val)
 
 
     def setup(self):

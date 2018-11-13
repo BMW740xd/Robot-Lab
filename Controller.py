@@ -74,9 +74,9 @@ class Controller:
             sensob.update()
 
 
+
     def update_all_behaviors(self):
         for behavior in self.behavior_list:
-            print("oppdaterer behavior:")
             behavior.update()
 
     def invoke_arbitrator(self):
