@@ -21,8 +21,8 @@ class Motob:
         else:
             pass  # gjør ingenting ellers
 
-    def update(self, recommendation, haltflag):
-        if haltflag:
+    def update(self, recommendation,halt_request):
+        if halt_request:
             self.motors.stop()  # stopper om haltflag skjer
         else:
             self.value = recommendation  # setter value til recommendation
