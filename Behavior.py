@@ -29,10 +29,11 @@ class Behavior:
         self.values = []
 
     def update_values(self):
-        self.sensobs = self.bbcon.sensobs
+        self.sensobs = self.bbcon.sensob_list
         self.values = []
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
+        print(self.sensobs)
 
     def img_hits(self):  # hits er pixler, sjekker hvor i bildet det er rødt
         image = self.values[1]
@@ -107,12 +108,16 @@ class Behavior:
         if self.active_flag:
             self.bbcon.activate_bahvaior(self)
 
+
+
     def update(self):  # oppdater active_flag
 
         if self.active_flag:
+            print(self.active_flag)
             self.consider_deactivation()
 
         else:
+            print(self.active_flag)
             self.consider_activation()
 
         if self.active_flag:
