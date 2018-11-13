@@ -81,7 +81,7 @@ class Controller:
         self.arbitrator.choose_action()
 
     def update_all_motobs(self):
-        #for motob in self.motob_list:
+        # for motob in self.motob_list:
         self.motob_c.update()
 
     def wait(self):
