@@ -1,12 +1,9 @@
-from Controller import *
-from Behavior import *
-
-
 class Arbitrator:
 
-    def __init__(self):
+    def __init__(self, controller_object):
         # en liste med alle active_behaviors fra bbcon
-        self.active_behaviors = Controller().active_behavior_list
+        self.controller = controller_object
+        self.active_behaviors = self.controller.active_behavior_list
 
     def choose_action(self):
         # velger den oppførselen med størst vekt

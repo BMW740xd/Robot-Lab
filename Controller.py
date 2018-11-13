@@ -1,4 +1,4 @@
-from Arbitrator import Arbitrator
+import Arbitrator
 import Sensob
 import Motob
 import Behavior
@@ -33,7 +33,6 @@ class Controller:
     active_behavior_list = []
     sensob_list = []
     motob_list = []
-    arbitrator = Arbitrator()
     priority_list = [0.7, 0.3, 0.2, 0.1]
     antall_sensorer = 6
     antall_behaviors = 4
@@ -41,6 +40,7 @@ class Controller:
     def __init__(self):  # Starter roboten ved å legge til oppforsel og sensorobjektene
         self.add_behavior(self.antall_behaviors)
         self.add_sensob(self.antall_sensorer)
+        self.arbitrator = Arbitrator.Arbitrator(self)
         self.motob_c = Motob.Motob()
         self.run_one_timestep()
 
@@ -81,7 +81,7 @@ class Controller:
         self.arbitrator.choose_action()
 
     def update_all_motobs(self):
-        #for motob in self.motob_list:
+        # for motob in self.motob_list:
         self.motob_c.update()
 
     def wait(self):
