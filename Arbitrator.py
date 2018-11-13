@@ -14,6 +14,6 @@ class Arbitrator:
             if self.active_behaviors[i].weight > winner:  # sjekker om neste behavior er større en winner
                 winner = self.active_behaviors[i].weight  # setter winner til den nye behavior med større vekt
                 winning_action = self.active_behaviors[i]  # setter winning_action til den nye behavior
-            action = (winning_action,
+            action = (winning_action.motor_recommendations,
                       winning_action.halt_request)  # legger til behavior og en boolean om behavior skal bli stoppet
         return action  # returnerer tuppelen
