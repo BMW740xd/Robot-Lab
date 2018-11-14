@@ -15,9 +15,10 @@ class ZumoButton():
         while read_val:
             read_val = wp.digitalRead(22)
         print("Button pressed!!")
+        self.stoppet = False
 
     def stopp_knapp(self):
-        if wp.digitalRead(22):
+        if not wp.digitalRead(22):
             self.stoppet = True
         if self.stoppet:
             print("Stoppet!")
