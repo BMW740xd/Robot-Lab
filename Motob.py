@@ -27,6 +27,7 @@ class Motob:
                 pass  # gjør ingenting ellers
 
     def update(self, recommendation,halt_request):
+        self.value=[]
         if halt_request:
             self.motors.stop()  # stopper om haltflag skjer
         else:
@@ -35,6 +36,3 @@ class Motob:
 
     def get_value(self):
         return self.value  # returnerer motor recommendation
-
-    def reset(self):
-        self.value=[]
