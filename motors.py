@@ -43,16 +43,16 @@ class Motors():
         #self.dc=int(self.max*speed)
         self.set_right_dir(0)
         self.set_left_dir(0)
-        self.set_left_speed(150)
-        self.set_right_speed(450)
+        self.set_left_speed(50)
+        self.set_right_speed(200)
         self.persist(dur)
 
     def forward_right(self,speed=0.4,dur=None): #roboten beveger seg rett frem og til høyre
         #self.dc=int(self.max*speed)
         self.set_right_dir(0)
         self.set_left_dir(0)
-        self.set_left_speed(450)
-        self.set_right_speed(150)
+        self.set_left_speed(200)
+        self.set_right_speed(50)
         self.persist(dur)
 
     def backward(self, speed=0.4, dur=None):
