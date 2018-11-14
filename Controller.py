@@ -75,7 +75,8 @@ class Controller:
             #self.knapp.stopp_knapp()
             if (self.knapp.stopp_knapp()):
                 self.motob_c.operationalize('S')
-                return
+                self.wait()
+                self.run_one_timestep()
 
     def update_all_sensobs(self):
         for sensob in self.sensob_list:
