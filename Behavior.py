@@ -33,7 +33,7 @@ class Behavior:
         self.values = []
         for sensob in self.sensobs:
             self.values.append((sensob.get_value()))
-        print("verdier i values:", self.values)
+        #print("verdier i values:", self.values)
 
     def img_hits(self):  # hits er pixler, sjekker hvor i bildet det er rødt
         image = self.values[1]
@@ -116,11 +116,11 @@ class Behavior:
     def update(self):  # oppdater active_flag
 
         if self.active_flag:
-            print(self.active_flag)
+            #print(self.active_flag)
             self.consider_deactivation()
 
         else:
-            print(self.active_flag)
+            #print(self.active_flag)
             self.consider_activation()
 
         if self.active_flag:
@@ -130,9 +130,10 @@ class Behavior:
 
     def sense_and_act(self):  # setter motrec, match_degree og muligens halt_request
         self.update_values()
-        print(self.behavior)
+        #print(self.behavior)
 
         if self.behavior == 1:  # den er aktiv aka skal unngaa kollisjon, må da kjøre bakover
+            print("TOO CLOSE")
             # må sjekke hva value er og regne ut en match_degree
             # den er kun aktiv hvis man er så og så nærme, høyere match_degree jo nærmere objektet
 
@@ -140,6 +141,7 @@ class Behavior:
             self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob, kanskje legge på en spinn slik at den bytter retning, ikke bare kjører rett bakover
 
         elif self.behavior == 2:  # kamera, hva gjøres her
+            print("CAMERA")
             hits, maks = self.img_hits()
             print(hits, maks)
             self.match_degree = hits / 12288
@@ -158,6 +160,7 @@ class Behavior:
 
 
         elif self.behavior == 3:  # holde seg på linjen, må svinge, avhenger av side den er på avveie
+            print("STAY ON LINE")
             # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre
             self.match_degree = 2
             verdier = []
@@ -181,5 +184,6 @@ class Behavior:
 
 
         elif self.behavior == 4:
+            print("GO FORWARD")
             self.match_degree = 1
             self.motor_recommendations = 'F'

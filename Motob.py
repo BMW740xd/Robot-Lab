@@ -1,4 +1,4 @@
-from motors import *
+from motors import Motors
 
 
 class Motob:
@@ -7,19 +7,24 @@ class Motob:
         self.motors = Motors()  # Oppretter en liste med motorer
         self.value = None  # et sted hvor man lagrer motor recommendations sendt til denne motoben
         # lager en dictionary med de forskjellige bevegelsene til motorene
-        self.settings = {"F": self.motors.forward(),
-                         "B": self.motors.backward(),
-                         "L": self.motors.left(),
-                         "R": self.motors.right(),
-                         "S": self.motors.stop(),
-                         "FL": self.motors.forward_left(),
-                         "FR": self.motors.forward_right()}
+        self.settings = {"F": self.motors.forward,
+                         "B": self.motors.backward,
+                         "L": self.motors.left,
+                         "R": self.motors.right,
+                         "S": self.motors.stop,
+                         "FL": self.motors.forward_left,
+                         "FR": self.motors.forward_right}
 
     def operationalize(self, recommendation):
-        if recommendation in self.settings:  # sjekker om recommendation er i dictionary
-            self.settings.get(recommendation)  # utfører recommendation
-        else:
-            pass  # gjør ingenting ellers
+
+        for r in self.settings:
+            if r == recommendation:  # sjekker om recommendation er i dictionary
+                self.settings.get(recommendation)()
+                ting = self.settings.get(recommendation)  # utfører recommendation
+                print(ting)
+                ting()
+            else:
+                pass  # gjør ingenting ellers
 
     def update(self, recommendation,halt_request):
         if halt_request:

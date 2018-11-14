@@ -3,6 +3,7 @@ import Sensob
 import Motob
 import Behavior
 import time
+from zumo_button import ZumoButton
 
 
 class Controller:
@@ -62,6 +63,7 @@ class Controller:
     # Run_one_Timestep kjører metodene under den.
 
     def run_one_timestep(self):
+        ZumoButton().wait_for_press()
         while True:
             self.update_all_sensobs()
             self.update_all_behaviors()
