@@ -44,7 +44,7 @@ class Controller:
         self.add_sensob(self.antall_sensorer)
         self.arbitrator = Arbitrator.Arbitrator(self)
         self.motob_c = Motob.Motob()
-        self.knapp = ZumoButton
+        self.knapp = ZumoButton()
         self.run_one_timestep()
 
     def add_behavior(self, antall):  # Oppretter og legger til oppforselsobjektene i en liste "behavior_list"
