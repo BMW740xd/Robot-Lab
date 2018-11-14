@@ -54,6 +54,7 @@ class Behavior:
                         mid += 1
                     elif x > 2 * width / 3:
                         right += 1
+        print(left, mid, right)
         if (left > right) and (left > mid):
             maks = "Left"
         elif (right > left) and (right > mid):
@@ -68,7 +69,7 @@ class Behavior:
     def consider_deactivation(self):  # naar self er active, sjekker om den bor vare inactive
         self.update_values()
         if self.behavior == 1:  # sjekker om det er "unngå kollisjon", value er da et tall, float
-            if self.values[0] > 5:  # et tall vi bestemmer som avstand der den bor snu/stoppe
+            if self.values[0] > 7:  # et tall vi bestemmer som avstand der den bor snu/stoppe
                 self.active_flag = False
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
@@ -92,7 +93,7 @@ class Behavior:
     def consider_activation(self):  # naar self er inactive, sjekker om den bor vare active
         self.update_values()
         if self.behavior == 1:  # unngå kollisjon, ur, value er float
-            if self.values[0] <= 5:  # er den mindre enn dette må den aktiveres
+            if self.values[0] <= 7:  # er den mindre enn dette må den aktiveres
                 self.active_flag = True
 
         elif self.behavior == 2:  # kamera
@@ -101,6 +102,7 @@ class Behavior:
                 self.active_flag = True
 
         elif self.behavior == 3:  # IR, sjekker linje
+            print(self.values[2])
             for n in self.values[2]:
                 if n < 0.2:  # sjekker om den er på teipen eller ei, hvis én e på teipen så er den aktiv
                     self.active_flag = True
@@ -153,6 +155,7 @@ class Behavior:
                 self.motor_recommendations = 'FR'
             else:
                 self.halt_request = True
+            print(self.motor_recommendations)
 
             # må så utfra match_degree sette motrec
             # motrec vil da gi en retning, typ kjør nord-vest utfra hvor det er sterkest rød-farge
@@ -187,3 +190,4 @@ class Behavior:
             print("GO FORWARD")
             self.match_degree = 1
             self.motor_recommendations = 'F'
+
