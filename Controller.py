@@ -34,7 +34,7 @@ class Controller:
     active_behavior_list = []
     sensob_list = []
     motob_list = []
-    priority_list = [0.7, 0.3, 0.2, 0.1]
+    priority_list = [0.7, 0.5, 0.2, 0.1]
     antall_sensorer = 3
     antall_behaviors = 4
     tuppel = ()
