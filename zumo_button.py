@@ -22,3 +22,4 @@ class ZumoButton():
             self.stoppet = True
         if self.stoppet:
             print("Stoppet!")
+            return True

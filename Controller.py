@@ -72,7 +72,10 @@ class Controller:
             self.update_all_motobs()
             self.wait()
             self.reset_the_sensobs()
-            self.knapp.stopp_knapp()
+            #self.knapp.stopp_knapp()
+            if (self.knapp.stopp_knapp()):
+                self.motob_c.operationalize('S')
+                return
 
     def update_all_sensobs(self):
         for sensob in self.sensob_list:
