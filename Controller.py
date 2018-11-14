@@ -64,7 +64,7 @@ class Controller:
     # Run_one_Timestep kjører metodene under den.
 
     def run_one_timestep(self):
-
+        self.knapp.wait_for_press()
         while True:
             self.update_all_sensobs()
             self.update_all_behaviors()
