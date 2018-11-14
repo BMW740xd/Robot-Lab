@@ -61,6 +61,8 @@ class Motors():
         self.set_right_dir(1)
         self.set_left_speed(self.dc)
         self.set_right_speed(self.dc)
+        sleep(0.3)
+        self.right()
         self.persist(dur)
 
     def left(self, speed=0.4, dur=None):
