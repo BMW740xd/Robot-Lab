@@ -3,7 +3,7 @@ import wiringpi as wp
 
 class ZumoButton():
 
-    stoppet = False;
+    stoppet = False
 
     def __init__(self):
         wp.wiringPiSetupGpio()
@@ -18,6 +18,6 @@ class ZumoButton():
 
     def stopp_knapp(self):
         if wp.digitalRead(22):
-            stoppet = True;
-        if stoppet:
+            self.stoppet = True
+        if self.stoppet:
             print("Stoppet!")
