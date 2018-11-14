@@ -18,10 +18,10 @@ class Motob:
     def operationalize(self, recommendation):
         for r in self.settings:
             if r == recommendation:  # sjekker om recommendation er i dictionary
-                print("in if-loop")
+                #print("in if-loop")
                 #self.settings.get(recommendation)()
                 ting = self.settings.get(recommendation)  # utfører recommendation
-                print(ting)
+                #print(ting)
                 ting()
             else:
                 pass  # gjør ingenting ellers

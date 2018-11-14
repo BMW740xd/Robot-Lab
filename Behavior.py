@@ -73,24 +73,35 @@ class Behavior:
         if self.behavior == 1:  # sjekker om det er "unngå kollisjon", value er da et tall, float
             if self.values[0] > 7:  # et tall vi bestemmer som avstand der den bor snu/stoppe
                 self.active_flag = False
+                self.bbcon.deactivate_behavior(self)
+                print("Ferdig deaktivert:", self.behavior)
 
         elif self.behavior == 2:  # sjekker om det er "se etter objekt", står i camera at den lagrer RGB-arrayen i value?
             hits,maks = self.img_hits()  # hits er et tall som sier noe om bildet har nok rød til at vi bryr oss
             if hits < 1000: #her finne et mer riktig tall?
                 self.active_flag = False
+                self.bbcon.deactivate_behavior(self)
+                print("Ferdig deaktivert:", self.behavior)
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
+            utenfor = False
             for n in self.values[2]:  # går gjennom de 6 tallene i listen
                 if n < 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
-                    return
+                    utenfor = True
                 else:
-                    self.active_flag = False
+                    utenfor = False
+
+            if utenfor == True:
+                self.active_flag = False
+                self.bbcon.deactivate_behavior(self)
+                print("Ferdig deaktivert:", self.behavior)
 
         elif self.behavior == 4:
             self.active_flag = True
 
-        if not self.active_flag:
-            self.bbcon.deactivate_behavior(self)
+        #if not self.active_flag:
+            #self.bbcon.deactivate_behavior(self)
+            #print("Ferdig deaktivert:", self.behavior)
 
     def consider_activation(self):  # naar self er inactive, sjekker om den bor vare active
         self.update_values()
@@ -114,6 +125,7 @@ class Behavior:
 
         if self.active_flag:
             self.bbcon.activate_behavior(self)
+            print("Ferdig aktivert:", self.behavior)
 
 
 
@@ -127,7 +139,7 @@ class Behavior:
         else:
             #print(self.active_flag)
             self.consider_activation()
-        print(self.active_flag)
+        print("Behavior", self.behavior, "er", self.active_flag)
 
         if self.active_flag:
             self.sense_and_act()
@@ -139,7 +151,7 @@ class Behavior:
         #print(self.behavior)
 
         if self.behavior == 1:  # den er aktiv aka skal unngaa kollisjon, må da kjøre bakover
-            print("TOO CLOSE")
+            #print("TOO CLOSE")
             # må sjekke hva value er og regne ut en match_degree
             # den er kun aktiv hvis man er så og så nærme, høyere match_degree jo nærmere objektet
 
@@ -147,7 +159,7 @@ class Behavior:
             self.motor_recommendations = 'B'  # kjøre bakover, dette kodes i motob, kanskje legge på en spinn slik at den bytter retning, ikke bare kjører rett bakover
 
         elif self.behavior == 2:  # kamera, hva gjøres her
-            print("CAMERA")
+            #print("CAMERA")
             hits, maks = self.img_hits()
             print(hits, maks)
             self.match_degree = (hits / 12288) + 2
@@ -167,7 +179,7 @@ class Behavior:
 
 
         elif self.behavior == 3:  # holde seg på linjen, må svinge, avhenger av side den er på avveie
-            print("STAY ON LINE")
+            #print("STAY ON LINE")
             # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre
             self.match_degree = 2
             verdier = []
@@ -189,7 +201,7 @@ class Behavior:
 
 
         elif self.behavior == 4:
-            print("GO FORWARD")
+            #print("GO FORWARD")
             self.match_degree = 1
             self.motor_recommendations = 'F'
 
