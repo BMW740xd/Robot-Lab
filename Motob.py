@@ -5,7 +5,7 @@ class Motob:
 
     def __init__(self):
         self.motors = Motors()  # Oppretter en liste med motorer
-        self.value = None  # et sted hvor man lagrer motor recommendations sendt til denne motoben
+        self.value = []  # et sted hvor man lagrer motor recommendations sendt til denne motoben
         # lager en dictionary med de forskjellige bevegelsene til motorene
         self.settings = {"F": self.motors.forward,
                          "B": self.motors.backward,
@@ -30,7 +30,7 @@ class Motob:
         if halt_request:
             self.motors.stop()  # stopper om haltflag skjer
         else:
-            self.value = recommendation  # setter value til recommendation
+            self.value.append(recommendation)  # setter value til recommendation
             self.operationalize(recommendation)  # utfører recommendation
 
     def get_value(self):
