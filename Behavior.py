@@ -85,13 +85,13 @@ class Behavior:
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
             utenfor = False
+            counter = 0
             for n in self.values[2]:  # går gjennom de 6 tallene i listen
                 if n < 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
                     utenfor = True
-                else:
-                    utenfor = False
+                    counter +=1
 
-            if utenfor == True:
+            if utenfor == True and counter == 6:
                 self.active_flag = False
                 self.bbcon.deactivate_behavior(self)
                 print("Ferdig deaktivert:", self.behavior)
