@@ -43,14 +43,14 @@ class Motors():
         self.set_right_dir(0)
         self.set_left_dir(0)
         self.set_left_speed(100)
-        self.set_right_speed(400)
+        self.set_right_speed(300)
         self.persist(dur)
 
     def forward_right(self,speed=0.4,dur=None): #roboten beveger seg rett frem og til høyre
         #self.dc=int(self.max*speed)
         self.set_right_dir(0)
         self.set_left_dir(0)
-        self.set_left_speed(400)
+        self.set_left_speed(300)
         self.set_right_speed(100)
         self.persist(dur)
 
@@ -72,8 +72,8 @@ class Motors():
             self.set_right_dir(0)
             self.set_right_speed(s)
         else:
-            self.set_left_speed(100)
-            self.set_right_speed(400)
+            self.set_left_speed(80)
+            self.set_right_speed(300)
         self.persist(dur)
 
     def right(self, speed=0.15, dur=None):
@@ -84,8 +84,8 @@ class Motors():
             self.set_right_dir(1)
             self.set_right_speed(s)
         else:
-            self.set_left_speed(400)
-            self.set_right_speed(100)
+            self.set_left_speed(300)
+            self.set_right_speed(80)
         self.persist(dur)
 
 

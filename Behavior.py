@@ -71,7 +71,7 @@ class Behavior:
     def consider_deactivation(self):  # naar self er active, sjekker om den bor vare inactive
         self.update_values()
         if self.behavior == 1:  # sjekker om det er "unngå kollisjon", value er da et tall, float
-            if self.values[0] > 7:  # et tall vi bestemmer som avstand der den bor snu/stoppe
+            if self.values[0] > 4:  # et tall vi bestemmer som avstand der den bor snu/stoppe
                 self.active_flag = False
                 self.bbcon.deactivate_behavior(self)
                 print("Ferdig deaktivert:", self.behavior)
@@ -84,14 +84,16 @@ class Behavior:
                 print("Ferdig deaktivert:", self.behavior)
 
         elif self.behavior == 3:  # sjekker om det er "holde seg på linje"
-            utenfor = False
+            pl = True
             counter = 0
             for n in self.values[2]:  # går gjennom de 6 tallene i listen
-                if n < 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
-                    utenfor = True
+                if n > 0.2:  # igjen et tall vi bestemmer, som gjør at den deaktiveres
+                    pl = False
                     counter +=1
+            print("PL er:",pl)
+            print("counter er", counter)
 
-            if utenfor == True and counter == 6:
+            if not pl and counter >= 5:
                 self.active_flag = False
                 self.bbcon.deactivate_behavior(self)
                 print("Ferdig deaktivert:", self.behavior)
@@ -106,7 +108,7 @@ class Behavior:
     def consider_activation(self):  # naar self er inactive, sjekker om den bor vare active
         self.update_values()
         if self.behavior == 1:  # unngå kollisjon, ur, value er float
-            if self.values[0] <= 7:  # er den mindre enn dette må den aktiveres
+            if self.values[0] <= 4:  # er den mindre enn dette må den aktiveres
                 self.active_flag = True
 
         elif self.behavior == 2:  # kamera
@@ -187,9 +189,9 @@ class Behavior:
             for n in self.values[2]:
                 verdier.append(n)  # lager bare liste med verdier til IR-sensoren
             print(verdier)
-            if verdier[4] < 0.2 and verdier[5] < 0.2:
+            if verdier[4] < 0.2 or verdier[5] < 0.2:
                 self.motor_recommendations = 'R'
-            elif verdier[0] < 0.2 and verdier[1] < 0.2:  # teipen er langt til venstre
+            elif verdier[0] < 0.2 or verdier[1] < 0.2:  # teipen er langt til venstre
                 self.motor_recommendations = 'L'
             elif verdier[1] < 0.2 and verdier[2] < 0.2:
                 self.motor_recommendations = 'FL'
