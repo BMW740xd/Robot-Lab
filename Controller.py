@@ -44,6 +44,7 @@ class Controller:
         self.add_sensob(self.antall_sensorer)
         self.arbitrator = Arbitrator.Arbitrator(self)
         self.motob_c = Motob.Motob()
+        self.knapp = ZumoButton
         self.run_one_timestep()
 
     def add_behavior(self, antall):  # Oppretter og legger til oppforselsobjektene i en liste "behavior_list"
@@ -63,7 +64,7 @@ class Controller:
     # Run_one_Timestep kjører metodene under den.
 
     def run_one_timestep(self):
-        ZumoButton().wait_for_press()
+
         while True:
             self.update_all_sensobs()
             self.update_all_behaviors()
@@ -71,12 +72,11 @@ class Controller:
             self.update_all_motobs()
             self.wait()
             self.reset_the_sensobs()
+            self.knapp.stopp_knapp()
 
     def update_all_sensobs(self):
         for sensob in self.sensob_list:
             sensob.update()
-
-
 
     def update_all_behaviors(self):
         for behavior in self.behavior_list:

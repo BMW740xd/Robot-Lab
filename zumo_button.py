@@ -3,6 +3,8 @@ import wiringpi as wp
 
 class ZumoButton():
 
+    stoppet = False;
+
     def __init__(self):
         wp.wiringPiSetupGpio()
         wp.pinMode(22, 0)
@@ -14,3 +16,8 @@ class ZumoButton():
             read_val = wp.digitalRead(22)
         print("Button pressed!!")
 
+    def stopp_knapp(self):
+        if wp.digitalRead(22):
+            stoppet = True;
+        if stoppet:
+            print("Stoppet!")
