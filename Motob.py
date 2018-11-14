@@ -19,14 +19,8 @@ class Motob:
 
         for r in self.settings:
             if r == recommendation:  # sjekker om recommendation er i dictionary
-<<<<<<< HEAD
-                self.settings.get(recommendation)()
-                ting = self.settings.get(recommendation)  # utfører recommendation
-                print(ting)
-=======
                 #self.settings.get(recommendation)()
-                ting = self.settings.get(recommendation)
->>>>>>> 938baa5372377e0029ce9cb75f0708d0b4d76f31
+                ting = self.settings.get(recommendation)  # utfører recommendation
                 ting()
             else:
                 pass  # gjør ingenting ellers
