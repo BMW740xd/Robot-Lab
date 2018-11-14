@@ -46,7 +46,7 @@ class Behavior:
         for x in range(width):  # står i camera, men finnes disse i image-objektet?
             for y in range(height):  # kan også være bare for y in range(96)
                 r, g, b = image.getpixel((x, y))  # fra imager2
-                if r > 100 and g < 100 and b < 100:  # er det nok rødt til at vi bryr oss
+                if r > 150 and g < 100 and b < 100:  # er det nok rødt til at vi bryr oss
                     hits += 1
                     if x < width/3:  # disse finner ut om pixelen er til venstre, høyre eller midt av bildet
                         left += 1
@@ -55,12 +55,14 @@ class Behavior:
                     elif x > 2 * width / 3:
                         right += 1
         print(left, mid, right)
-        if (left > right) and (left > mid):
+        if (left >= right) and (left >= mid):
             maks = "Left"
-        elif (right > left) and (right > mid):
+        elif (right >= left) and (right >= mid):
             maks = "Right"
-        elif (mid > left) and (mid > right):
+        elif (mid >= left) and (mid >= right):
             maks = "Mid"
+        elif left == right == mid == 0:
+            maks = None
         else:
             print("FEIL")
             raise ValueError
@@ -169,21 +171,20 @@ class Behavior:
             # må finne ut hvordan den vet hvordan den svinger til høyre eller venstre
             self.match_degree = 2
             verdier = []
+
             for n in self.values[2]:
                 verdier.append(n)  # lager bare liste med verdier til IR-sensoren
-
-            if verdier[2] < 0.2 and verdier[3] < 0.2:  # teipen er på midten
-                self.motor_recommendations = 'F'
-            elif verdier[0] < 0.2 and verdier[1] < 0.2:  # teipen er langt til venstre
+            print(verdier)
+            if verdier[4] < 0.2 and verdier[5] < 0.2:
                 self.motor_recommendations = 'R'
-            elif verdier[1] < 0.2 and verdier[2] < 0.2:
-                self.motor_recommendations = 'FR'
-            elif verdier[3] < 0.2 and verdier[4] < 0.2:
-                self.motor_recommendations = 'FL'
-            elif verdier[4] < 0.2 and verdier[5] < 0.2:
+            elif verdier[0] < 0.2 and verdier[1] < 0.2:  # teipen er langt til venstre
                 self.motor_recommendations = 'L'
-            else:
-                self.consider_deactivation()  # trengs denne?
+            elif verdier[1] < 0.2 and verdier[2] < 0.2:
+                self.motor_recommendations = 'FL'
+            elif verdier[3] < 0.2 and verdier[4] < 0.2:
+                self.motor_recommendations = 'FR'
+            elif verdier[2] < 0.2 and verdier[3] < 0.2:  # teipen er på midten
+                self.motor_recommendations = 'F'
 
 
 
