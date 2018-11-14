@@ -68,6 +68,7 @@ class Controller:
         while True:
             self.update_all_sensobs()
             self.update_all_behaviors()
+            print(self.active_behavior_list)
             self.invoke_arbitrator()
             self.update_all_motobs()
             self.wait()

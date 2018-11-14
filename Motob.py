@@ -16,12 +16,13 @@ class Motob:
                          "FR": self.motors.forward_right}
 
     def operationalize(self, recommendation):
-
         for r in self.settings:
             if r == recommendation:  # sjekker om recommendation er i dictionary
-                self.settings.get(recommendation)()
-                #ting = self.settings.get(recommendation)  # utfører recommendation
-                #ting()
+                print("in if-loop")
+                #self.settings.get(recommendation)()
+                ting = self.settings.get(recommendation)  # utfører recommendation
+                print(ting)
+                ting()
             else:
                 pass  # gjør ingenting ellers
 

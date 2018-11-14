@@ -121,9 +121,11 @@ class Behavior:
             #print(self.active_flag)
             self.consider_deactivation()
 
+
         else:
             #print(self.active_flag)
             self.consider_activation()
+        print(self.active_flag)
 
         if self.active_flag:
             self.sense_and_act()
@@ -146,7 +148,7 @@ class Behavior:
             print("CAMERA")
             hits, maks = self.img_hits()
             print(hits, maks)
-            self.match_degree = hits / 12288
+            self.match_degree = (hits / 12288) + 2
             if maks == "Left":
                 self.motor_recommendations = 'FL'
             elif maks == "Mid":
@@ -181,7 +183,6 @@ class Behavior:
             elif verdier[4] < 0.2 and verdier[5] < 0.2:
                 self.motor_recommendations = 'L'
             else:
-                self.halt_request = True
                 self.consider_deactivation()  # trengs denne?
 
 
