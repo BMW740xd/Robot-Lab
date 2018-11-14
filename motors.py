@@ -30,7 +30,7 @@ class Motors():
     # speed, with negative values indicating that the wheel will spin in reverse. The argument "dur" (duration)
     # is the time (in seconds) that the action will persist.
 
-    def forward(self, speed=0.4, dur=None):
+    def forward(self, speed=0.25, dur=None):
         print("den gikk inn")
         self.dc = int(self.max * speed)
         self.set_left_dir(0)
@@ -43,19 +43,19 @@ class Motors():
         #self.dc=int(self.max*speed)
         self.set_right_dir(0)
         self.set_left_dir(0)
-        self.set_left_speed(50)
-        self.set_right_speed(200)
+        self.set_left_speed(30)
+        self.set_right_speed(100)
         self.persist(dur)
 
     def forward_right(self,speed=0.4,dur=None): #roboten beveger seg rett frem og til høyre
         #self.dc=int(self.max*speed)
         self.set_right_dir(0)
         self.set_left_dir(0)
-        self.set_left_speed(200)
-        self.set_right_speed(50)
+        self.set_left_speed(100)
+        self.set_right_speed(30)
         self.persist(dur)
 
-    def backward(self, speed=0.4, dur=None):
+    def backward(self, speed=0.25, dur=None):
         self.dc = int(self.max * speed)
         self.set_left_dir(1)
         self.set_right_dir(1)
@@ -65,7 +65,7 @@ class Motors():
         self.right()
         self.persist(dur)
 
-    def left(self, speed=0.4, dur=None):
+    def left(self, speed=0.25, dur=None):
         s = int(self.max * speed)
         if self.dc == 0:
             self.set_left_dir(1)
@@ -77,7 +77,7 @@ class Motors():
             self.set_right_speed(450)
         self.persist(dur)
 
-    def right(self, speed=0.4, dur=None):
+    def right(self, speed=0.25, dur=None):
         s = int(self.max * speed)
         if self.dc == 0:
             self.set_left_dir(0)
