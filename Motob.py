@@ -35,3 +35,6 @@ class Motob:
 
     def get_value(self):
         return self.value  # returnerer motor recommendation
+
+    def reset(self):
+        self.value=[]
